@@ -1,20 +1,15 @@
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
+
 #include "integrate.h"
-
-double circle (double x){
-    return sqrt(1 - pow(x,2));
-}
-
-double linear(double x){
-    return x;
-}
+#include "functions.h"
 
 int main() {
-    printf("Hello, World!\n");
+    printf("#### Calc PI\n");
 
+    double pi = integrate(simpleCircle, 0, 1, 1000000000) * 4;
 
-    printf("%f\n",integrate(linear,1,2,100));
+    printf("Pi: %.16f\n",pi);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
