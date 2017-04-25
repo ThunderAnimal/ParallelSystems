@@ -5,16 +5,27 @@
 #include <assert.h>
 #include <math.h>
 
-#include "functions.c"
 #include "integrate.c"
+
+static double yEquals1(double x){
+    return 1;
+}
+
+static double simpleLinear(double x){
+    return x;
+}
+
+static double simpleParabel(double x){
+    return pow(x,2);
+}
 
 static void test__integrate(void)
 {
     double deltaA = 0.00000001;
 
+    assert(fabs(integrate(yEquals1,3,5,1000) - 2) < deltaA);
     assert(fabs(integrate(simpleLinear,1,2,1000) - 1.5) < deltaA);
     assert(fabs(integrate(simpleParabel,0,3,1000) - 9) < deltaA);
-
 }
 
 /**

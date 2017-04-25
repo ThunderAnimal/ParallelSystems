@@ -2,12 +2,22 @@
 #include <stdlib.h>
 
 #include "integrate.h"
-#include "functions.h"
+#include "quadrant.h"
 
-int main() {
+
+int main(int argc, char **argv) {
     printf("#### Calc PI\n");
 
-    double pi = integrate(simpleCircle, 0, 1, 1000000000) * 4;
+    int steps;
+    if (argc > 1)
+    {
+        steps = atoi(argv[1]);
+    } else
+    {
+        steps = 1000000;
+    }
+
+    double pi = integrate(simpleCircle, 0, 1, steps) * 4;
 
     printf("Pi: %.16f\n",pi);
 
