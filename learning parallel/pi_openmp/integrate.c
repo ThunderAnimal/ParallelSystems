@@ -7,8 +7,14 @@
 #include "integrate.h"
 
 double integrate(double (*f)(double x), double l, double r, int steps){
+	int i = 0;
     double AGesamt = 0.0;
     double deltaX;
+
+	int max_thread = omp_get_max_threads();
+	int threadStep = steps / max_thread;
+
+	double A[max_thread];	
 
     if (l > r) {
         double temp = l;
@@ -17,15 +23,9 @@ double integrate(double (*f)(double x), double l, double r, int steps){
     }
 	
 	deltaX = (r-l)/steps;
-	
-	int i = 0;
-	int max_thread = omp_get_max_threads();
-	int threadStep = steps / max_thread;	
-
-	double A[max_thread];
-	for ( i=0; i < max_thread; i++ ){
+	/*for ( i=0; i < max_thread; i++ ){
 		A[i] = 0;
-	} 
+	}*/ 
 
 	#pragma omp parallel
 	{	
@@ -50,13 +50,18 @@ double integrate(double (*f)(double x), double l, double r, int steps){
 		for(j = startStep; j <= stopStep; j++){
 			AThread += f(l + (j * deltaX)) * deltaX; 
     	}
-		A[omp_get_thread_num()] = AThread;
+		#pragma omp critical 
+		{  //Nur immer ein Thread Zugriff
+			AGesamt += AThread;
+		}
+//		A[omp_get_thread_num()] = AThread;
+
 	
 	}
 
-	for (i = 0; i < max_thread; i++ ){
+	/*for (i = 0; i < max_thread; i++ ){
 		AGesamt += A[i];
-	} 
+	} */
 
     return AGesamt;
 }

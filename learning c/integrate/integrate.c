@@ -15,8 +15,10 @@ double integrate(double (*f)(double x), double l, double r, int steps){
     }
 
     deltaX = (r-l)/steps;
+
     for(i = 1; i <= steps; i++){
-        A += f(l + (i * deltaX)) * deltaX;
+		double x = l + (i * deltaX) 
+        A += f(x) * deltaX;
     }
 
     return A;
