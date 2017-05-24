@@ -86,6 +86,7 @@ $(TARGET): $(OBJS)
 .PHONY: test
 test: $(TESTS)
 	$(foreach T,$(TESTS), ./$(T) &&) true
+	$(foreach T,$(TESTS), valgrind --tool=helgrind ./$(T) &&) true
 
 # Cleanup all generated files
 clean:

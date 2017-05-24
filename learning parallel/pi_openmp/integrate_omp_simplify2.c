@@ -6,10 +6,9 @@
 
 #include "integrate.h"
 
-double integrate(double (*f)(double x), double l, double r, int steps){
-	double AGesamt = 0.0;
+double integrate_simplify2(double (*f)(double x), double l, double r, int steps){
+    double AGesamt = 0.0;
     double deltaX;
-	int i;
 
     if (l > r) {
         double temp = l;
@@ -19,10 +18,14 @@ double integrate(double (*f)(double x), double l, double r, int steps){
 
     deltaX = (r-l)/steps;
 	
-	#pragma omp parallel for reduction(+:AGesamt)
-    for(i = 1; i <= steps; i++){
+	#pragma omp parallel for
+    for(int i = 1; i <= steps; i++){
 		double x = l + (i * deltaX);
-        AGesamt += f(x) * deltaX;
+		
+		#pragma omp critical 
+		{  //Nur immer ein Thread Zugriff
+	        AGesamt += f(x) * deltaX;
+		}
     }
 
     return AGesamt;

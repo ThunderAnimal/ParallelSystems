@@ -1,0 +1,4 @@
+./integrate_test && true
+valgrind --tool=helgrind ./main
+#### Calc PI
+Pi: 3.1415906524137993

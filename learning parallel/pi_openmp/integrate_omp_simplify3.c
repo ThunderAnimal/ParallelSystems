@@ -4,10 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "integrate.h"
-
-double integrate(double (*f)(double x), double l, double r, int steps){
-	double AGesamt = 0.0;
+double integrate_simplify3(double (*f)(double x), double l, double r, int steps){
+    double AGesamt = 0.0;
     double deltaX;
 	int i;
 
