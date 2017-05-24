@@ -1,0 +1,6 @@
+1. libmp_dev
+2. libmec_dev
+3. libmefr_dev
+4. bison
+5. flex
+6. gcc, 
