@@ -1,1 +1,0 @@
-hellocl.o: hellocl.c
