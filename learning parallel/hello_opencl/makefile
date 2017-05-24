@@ -14,7 +14,7 @@ TARGET=hellocl
 # Flags and stuff, change as required
 OPTIMIZE=-O3
 CPPFLAGS=-ggdb $(OPTIMIZE) -Wall
-CFLAGS=-Wmissing-prototypess
+CFLAGS=-Wmissing-prototypes
 LDFLAGS=
 #FOR MAC
 LDLIBS=-framework OpenCL 
